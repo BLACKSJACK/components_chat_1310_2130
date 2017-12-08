@@ -6,6 +6,7 @@ class AvatarService {
         });
     }
 
+    // TODO: https://semantic-ui.com/images/avatar2/small/${imgName}.png
     getByName(userName) {
         if (!this._users[userName]) {
             this._users[userName] = `https://unsplash.it/200/200/?random=${Math.random() * 1000}`;
