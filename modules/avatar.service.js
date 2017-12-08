@@ -1,6 +1,9 @@
 class AvatarService {
     constructor() {
-        this._users = {};
+        this._users = new Proxy({}, {
+            get: this._onNameGet.bind(this),
+            set: this._onNameSet.bind(this)
+        });
     }
 
     getByName(userName) {
@@ -9,6 +12,16 @@ class AvatarService {
         }
 
         return this._users[userName];
+    }
+
+    _onNameGet(target, property, receiver) {
+        return localStorage.getItem(property);
+    }
+
+    _onNameSet(target, property, value, receiver) {
+        localStorage.setItem(property, value);
+
+        return true;
     }
 }
 

@@ -16,7 +16,7 @@
   "scripts": {
     "start": "./node_modules/.bin/static-server .",
     "lint": "./node_modules/.bin/eslint components/**/*.js",
-    "pug": "./node_modules/.bin/pug -c --name-after-file --extension pug.js  components/**/*.pug",
+    "pug": "./node_modules/.bin/pug -c --name-after-file --extension jade.js  components/**/*.jade",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
