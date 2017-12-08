@@ -7,7 +7,7 @@ div.chat
                 div(class="message-box " + (message.isMine ? "right-img" : "left-img"))
                     div.picture
                         img(src= message.avatar)
-                        span.time 21:30
+                        span.time= message.date.getHours() + ':' + message.date.getMinutes()
                     div.message
                         span=message.name
                         p=message.text
