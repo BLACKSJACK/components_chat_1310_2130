@@ -61,7 +61,7 @@ export class Chat {
 
     add(messages = []) {
         let addOneMessageMethod = this.addOne.bind(this);
-
+        this.data.messages = [];
         messages.forEach(addOneMessageMethod);
     }
 

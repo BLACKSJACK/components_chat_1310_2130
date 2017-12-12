@@ -1,6 +1,9 @@
 import {Chat} from './../chat/chat.js';
 import {Form} from './../form/form.js';
 
+import HttpService from './../../modules/http.service.js';
+import ChatService from './../../modules/chat.service.js';
+
 const USER_NAME = 'Artsiom';
 
 
@@ -21,26 +24,23 @@ export class App {
 
         this.el.append(this.chat.el, this.form.el);
 
-        this._asyncInit();
-    }
+        const httpService = new HttpService();
 
-    async _asyncInit() {
-        let data = await this.getData();
-        let ms = await this._setChatData(data);
-
-        this.render();
-        console.log(`Чат был запущен за ${ms} ms`);
-    }
-
-    _setChatData(data) {
-        return new Promise((resolve) => {
-            const ms = Math.round(Math.random() * 3000);
-
-            setTimeout(() => {
-                this.chat.add(data);
-                resolve(ms);
-            }, ms);
+        this.chatService = new ChatService({
+            baseUrl: 'https://components-1601-1930.firebaseio.com/chat/messages10_13.json',
+            http: httpService,
+            pollingInterval: 1000
         });
+
+        this.chatService.setUserName(USER_NAME);
+
+        this.chatService.on('messages', (messages) => {
+            this.chat.add(messages);
+            this.chat.render();
+        });
+
+        this.chatService.startPolling();
+        this.render();
     }
 
     render() {
@@ -49,32 +49,11 @@ export class App {
     }
 
     _onFormSubmit({text}) {
-        this.chat.addOne({
-            text,
-            name: USER_NAME
+        this.chatService.sendMessage({
+            text
         });
-        this.render();
-    }
 
-    getData() {
-        return new Promise((resolve, reject) => {
-            let xhr = new XMLHttpRequest();
-            xhr.addEventListener('readystatechange', (event) => {
-                if (xhr.readyState !== 4) {
-                    return;
-                }
-
-                if (xhr.status === 502) {
-                    reject(xhr.status);
-                    return;
-                }
-
-                const data = JSON.parse(xhr.responseText);
-                resolve(data);
-            });
-
-            xhr.open('GET', '/data/chat.json', true);
-            xhr.send();
-        });
+        this.chat.setScrollStrategy('bottom');
+        this.form.render();
     }
 }
