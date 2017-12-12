@@ -74,7 +74,7 @@ export default class ChatService {
     }
 
     stopPolling() {
-        clearInterval(this._pollingID);
+        clearTimeout(this._pollingID);
         this._stopped = true;
     }
 
@@ -86,7 +86,4 @@ export default class ChatService {
         this._messages = messages;
         this.trigger('messages', this._messages);
     }
-
 }
-
-

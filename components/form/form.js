@@ -1,3 +1,5 @@
+import formTemplate from './form.jade';
+
 export class Form {
     constructor({el, onSubmit}) {
         this.el = el;

@@ -2,20 +2,9 @@
     <head>
         <meta charset="utf-8">
         <link rel="stylesheet" href="./dist/milligram.css">
-        <link rel="stylesheet" href="./components/chat/chat.css">
-        <link rel="stylesheet" href="./components/app/app.css">
-
-        <script src="./components/form/form.jade.js"></script>
-        <script src="./components/chat/chat.jade.js"></script>
     </head>
     <body>
         <div class="js-app app"></div>
-        <script type="module">
-            import { App } from "./components/app/app.js";
-            
-            new App({
-                el: document.querySelector('.js-app')
-            });
-        </script>
+        <script src="./build/bundle.js"></script>
     </body>
 </html>

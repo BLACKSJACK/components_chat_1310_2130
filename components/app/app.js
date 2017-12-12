@@ -4,10 +4,12 @@ import {Form} from './../form/form.js';
 import HttpService from './../../modules/http.service.js';
 import ChatService from './../../modules/chat.service.js';
 
+import './app.css';
+
 const USER_NAME = 'Artsiom';
 
 
-export class App {
+class App {
     constructor({el}) {
         this.el = el;
         this.chat = new Chat({
@@ -25,7 +27,6 @@ export class App {
         this.el.append(this.chat.el, this.form.el);
 
         const httpService = new HttpService();
-
         this.chatService = new ChatService({
             baseUrl: 'https://components-1601-1930.firebaseio.com/chat/messages10_13.json',
             http: httpService,
@@ -39,7 +40,7 @@ export class App {
             this.chat.render();
         });
 
-        this.chatService.startPolling();
+        // this.chatService.startPolling();
         this.render();
     }
 
@@ -57,3 +58,7 @@ export class App {
         this.form.render();
     }
 }
+
+new App({
+    el: document.querySelector('.js-app')
+});

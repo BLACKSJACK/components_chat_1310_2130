@@ -1,4 +1,7 @@
 import {avatarService} from '../../modules/avatar.service.js';
+import chatTemplate from './chat.jade';
+
+import './chat.css';
 
 export class Chat {
     constructor({el, data = {messages: []}}) {
